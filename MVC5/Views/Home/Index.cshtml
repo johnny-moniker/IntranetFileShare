@@ -1,5 +1,38 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+<link href="~/Content/dropzone.css" rel="stylesheet" />
 
-@Html.ActionLink("Http 403 Test", "Forbidden", "Error");
+<div style="width:40%;float:left;  margin-top:25px; margin-bottom:25px;">
+
+    @using (Html.BeginForm("upload", "FileUpload", FormMethod.Post, new
+    {
+        enctype = "multipart/form-data",
+        id = "dropArea",
+        @class = "dropzone"
+    }))
+    {
+        <div class="fallback">
+            <input name="file" type="file" multiple />
+            <input type="submit" value="Upload" />
+        </div>
+    }
+</div>
+<div style="width:45%;float:right; min-height: 150px; margin-top:25px; background-color:gray; margin-bottom:25px;">
+
+</div>
+
+<script src="~/Scripts/dropzone.js"></script>
+<script type="text/javascript">
+    Dropzone.options.dropArea = {
+        paramName: "file",
+        init: function () {
+            this.on("complete", function (data) {
+                var res = JSON.parse(data.xhr.responseText);
+                console.log(res);
+            });
+        }
+    };
+</script>
+
+@*@Html.ActionLink("Http 403 Test", "Forbidden", "Error");*@
