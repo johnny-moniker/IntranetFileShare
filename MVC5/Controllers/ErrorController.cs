@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace MVC5.Controllers
 {
+    [HandleError]
     public class ErrorController : Controller
     {
         // GET: Error
