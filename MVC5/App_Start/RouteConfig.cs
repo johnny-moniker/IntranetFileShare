@@ -18,6 +18,9 @@ namespace MVC5
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute("Home", "Home/Index");
+            routes.MapRoute("Error", "Error/Index");
+            routes.MapRoute("Forbidden", "Error/Forbidden");
         }
     }
 }
