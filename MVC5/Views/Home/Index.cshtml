@@ -19,8 +19,10 @@
     }
 </div>
 <div style="width:45%;float:right; min-height: 150px; margin-top:25px; background-color:gray; margin-bottom:25px;">
-
+    <ul id="FileList">
+    </ul>
 </div>
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 
 <script src="~/Scripts/dropzone.js"></script>
 <script type="text/javascript">
@@ -30,7 +32,28 @@
             this.on("complete", function (data) {
                 var res = JSON.parse(data.xhr.responseText);
                 console.log(res);
+                getFileNames();
             });
         }
     };
+    $(function () {
+        getFileNames();
+    });
+
+    function getFileNames() {
+        $.ajax({
+            dataType: "json",
+            url: '@Url.Action("GetExistingFiles", "FileUpload")',
+            success: function (result) {
+                $("#FileList").empty();
+                $.each(result, function (index, fileName) {
+                    $("#FileList").append('<li>' + fileName + '</li>');
+                });
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+    }
+
 </script>

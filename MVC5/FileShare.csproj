@@ -216,6 +216,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="FileStorage\" />
     <Folder Include="Views\FileUpload\" />
   </ItemGroup>
   <ItemGroup>
