@@ -37,7 +37,7 @@
         }
     };
     $(function () {
-        getFileNames();
+        getFileNames();      
     });
 
     function getFileNames() {
@@ -47,8 +47,25 @@
             success: function (result) {
                 $("#FileList").empty();
                 $.each(result, function (index, fileName) {
-                    $("#FileList").append('<li>' + fileName + '</li>');
+                    $("#FileList").append('<li class="fileList">' + fileName + '<button style="margin-left:15px;" class="btn-primary deleteBtn" value="' + fileName + '">Delete</button></li>');
                 });
+                $(".deleteBtn").click(function (e) {
+                    deleteFile(e.currentTarget.value);
+                });
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+    }
+    function deleteFile(file) {
+        $.ajax({
+            method: "POST",
+            data: { 'filename': file },
+            url: '@Url.Action("DeleteFile", "FileUpload")',
+            success: function (result) {
+                alert("deleted the file!");
+                getFileNames();
             },
             error: function (e) {
                 console.log(e);

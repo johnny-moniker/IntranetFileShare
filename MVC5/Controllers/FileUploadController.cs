@@ -45,5 +45,31 @@ namespace MVC5.Controllers
             var directoryPath = Server.MapPath("~/FileStorage\\");
             return directoryPath;
         }
+
+        [HttpPost]
+        public JsonResult DeleteFile(FileInput file)
+        {
+            try
+            {
+                var fileToDelete = file.fileName;
+                if ((System.IO.File.Exists(file.fileName)))
+                {
+                    System.IO.File.Delete(file.fileName);
+                }
+                
+                return Json(new { Message = "Success" });
+            }
+            catch (Exception)
+            {
+                return Json(new { Message = "Failed" });
+            }
+        }
     }
+
+    public class FileInput
+    {
+        public string fileName { get; set; }
+    }
+
+
 }
